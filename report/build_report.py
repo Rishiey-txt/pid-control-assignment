@@ -457,6 +457,44 @@ here: the 20 N holding force, why P is short by 20/(20+K<sub>p</sub>), and where
 Real systems re-tune, add feed-forward, or schedule gains.</li>
 </ul>
 
+<h2>11. Reflection: approach, what worked, what didn't, what next</h2>
+<p><b>Approach.</b> I built everything bottom-up so every claim could be checked. I wrote a small simulator
+(exact zero-order-hold plant, PID called at a fixed rate like on a microcontroller) and one metrics function used
+everywhere. Before trusting any graph, I compared it with a hand calculation. I tuned by hand on the ideal system,
+then added the real-world limits one at a time, so each fix could be shown against its own problem.</p>
+<div class="two"><div>
+<h3>What worked</h3>
+<ul class="small">
+<li>Theory and simulation agree: P-only final values to 0.1 mm, overshoot within 0.9 pp, exact stability limit
+{SL['Ts_limit_exact_ms']:.1f} ms vs simulation, Z-N K<sub>u</sub> {S8['Ku']:.2f} vs 8.</li>
+<li>Hand tuning (P → D → I) reached {fin['overshoot_pct']:.1f} % overshoot and {fin['settling_s']:.2f} s settling.</li>
+<li>Back-calculation anti-windup: overshoot {wu['30 N limit, no anti-windup']['overshoot_pct']:.1f} % → 0 % with a 30 N motor.</li>
+<li>D filter: {(1 - nz_f['u_std_N'] / nz_raw['u_std_N']) * 100:.0f} % less force chatter at almost no cost in speed.</li>
+<li>Refining Z-N: overshoot {zn_c['overshoot_pct']:.0f} % → {zn_h['overshoot_pct']:.1f} %.</li>
+</ul>
+</div><div>
+<h3>What didn't work (or only partly)</h3>
+<ul class="small">
+<li><b>Clamping anti-windup</b> removed the overshoot but left a slow creep ({wu['30 N limit + clamping']['settling_s']:.2f} s vs
+{wu['30 N limit + back-calculation']['settling_s']:.2f} s), so I switched the default to back-calculation.</li>
+<li>The published Z-N <b>"some/no overshoot" rules</b> still overshot by {ZN["Z-N 'no overshoot'"]['overshoot_pct']:.0f}–{ZN["Z-N 'some overshoot'"]['overshoot_pct']:.0f} % on 1/(s+1)<sup>3</sup>.</li>
+<li>My <b>quick estimate of the sampling limit</b> (≈ {SL['Ts_limit_rule_of_thumb_ms']:.0f} ms) was {SL['Ts_limit_exact_ms'] - SL['Ts_limit_rule_of_thumb_ms']:.0f} ms
+too pessimistic, so I added the exact eigenvalue check.</li>
+<li>The final gains <b>ask for 300 N</b>. With the real 30 N motor the motor sets the speed (rise ≈ 0.4 s), and the gains were never re-tuned for it.</li>
+<li>The model is <b>idealised</b>: linear, no friction, backlash or motor dynamics, and the noise is white and uniform.</li>
+</ul>
+</div></div>
+<h3>What I would explore next with more time</h3>
+<ul class="small">
+<li><b>Design for the real 30 N motor:</b> add the known 20 N spring force as <i>feed-forward</i> (u = k·r + PID) and ramp the
+target, so the loop does less work and stays out of saturation.</li>
+<li><b>Automatic tuning:</b> minimise a cost (e.g. ITAE plus force and noise penalties) over K<sub>p</sub>, K<sub>i</sub>, K<sub>d</sub>, and compare with hand tuning.</li>
+<li><b>Robustness:</b> sweep mass, spring and delay to map where the chosen gains stay acceptable; report gain and phase margins.</li>
+<li><b>Better sensing:</b> a Kalman filter that estimates velocity, so D works from a clean estimate instead of a filtered difference.</li>
+<li><b>Beyond single-loop PID:</b> cascaded position/velocity loops, setpoint weighting, and a comparison with LQR/MPC.</li>
+<li><b>Hardware:</b> run the same <code>PID</code> class on a microcontroller with a real DC motor and encoder, and compare with the simulation.</li>
+</ul>
+
 <h2>Notes</h2>
 <p class="small"><b>Use of AI tools.</b> Claude (Anthropic) helped me structure the code and draft the text.
 Every number and graph in this document is produced by the code in the repository, and the key results were

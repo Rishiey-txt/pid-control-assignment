@@ -5,7 +5,36 @@ Everything is written from scratch in Python with **NumPy + Matplotlib only**. N
 PID, the plant simulation (exact zero-order hold via a hand-written matrix exponential) and the
 performance measures are all in `pidlab/`.
 
-The report is in [`report/PID_Report.pdf`](report/PID_Report.pdf).
+The report is in [`report/PID_Report.pdf`](report/PID_Report.pdf). Section 11 of the report is the
+full write-up; a summary is below.
+
+## Approach
+
+1. **Simulator first.** The 1 kg block on a spring and damper (m=1 kg, c=10 N·s/m, k=20 N/m) is stepped
+   exactly between controller updates. The PID is called every 1 ms, like on a microcontroller.
+2. **Check against theory before trusting a graph.** P-only steady-state error 20/(20+Kp), overshoot from
+   the damping ratio, an exact eigenvalue test for the sampling limit, and the analytic Ziegler–Nichols
+   gain for 1/(s+1)³ are all compared with simulation.
+3. **Tune on the ideal system** by hand (P → D → I): final gains **Kp=300, Ki=200, Kd=20** give 0.5 %
+   overshoot, 0.24 s settling and no steady-state error.
+4. **Add real-world problems one at a time** (30 N motor limit, ±1 mm sensor noise, setpoint jumps,
+   slow updates), show each failure, then fix it in the controller: back-calculation anti-windup,
+   a filtered derivative, derivative on measurement, and an explicit sample time.
+
+## What worked, what didn't, what next
+
+**Worked:** theory and simulation agree (final values to 0.1 mm, overshoot within 0.9 pp, Z-N
+Ku 7.99 vs 8). Anti-windup cut overshoot from 11 % to 0 % with a 30 N motor. The D filter removed 87 % of the
+force chatter. Refining Ziegler–Nichols took overshoot from 52 % to 1.4 %.
+
+**Didn't (or only partly):** clamping anti-windup left a slow creep (2.0 s vs 0.58 s), so back-calculation is
+the default. Ziegler–Nichols "no/some overshoot" rules still overshot by 21–25 %. My quick sampling-limit
+estimate (63 ms) was pessimistic against the exact 73.5 ms. The final gains ask for 300 N, so with a 30 N motor
+the motor, not the gains, sets the speed. The model is idealised (linear, no friction or motor dynamics).
+
+**Next:** feed-forward of the 20 N spring force plus a target ramp for the 30 N motor; automatic
+(optimisation-based) tuning; robustness sweeps over mass, spring and delay; a Kalman filter for velocity;
+cascaded loops and a comparison with LQR/MPC; testing the same `PID` class on a real motor.
 
 ## Quick start
 
