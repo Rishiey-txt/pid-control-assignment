@@ -1,0 +1,8 @@
+{
+  "rise_s": 0.072,
+  "overshoot_pct": 40.7,
+  "settling_s": 0.777,
+  "sse_mm": 62.5,
+  "final_m": 0.9375,
+  "peak_m": 1.3188
+}

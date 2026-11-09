@@ -1,0 +1,64 @@
+{
+  "Ku": 7.988,
+  "Pu_s": 3.63,
+  "Ku_theory": 8.0,
+  "Pu_theory_s": 3.628,
+  "rules": [
+    {
+      "rule": "Z-N classic PID",
+      "kp": 4.793,
+      "ki": 2.641,
+      "kd": 2.175,
+      "Ti_s": 1.815,
+      "Td_s": 0.454,
+      "rise_s": 0.951,
+      "overshoot_pct": 52.4,
+      "settling_s": 9.908,
+      "sse_mm": -0.0,
+      "final_m": 1.0,
+      "peak_m": 1.5245
+    },
+    {
+      "rule": "Z-N 'some overshoot'",
+      "kp": 2.663,
+      "ki": 1.467,
+      "kd": 3.222,
+      "Ti_s": 1.815,
+      "Td_s": 1.21,
+      "rise_s": 1.629,
+      "overshoot_pct": 24.9,
+      "settling_s": 12.838,
+      "sse_mm": 0.0,
+      "final_m": 1.0,
+      "peak_m": 1.2491
+    },
+    {
+      "rule": "Z-N 'no overshoot'",
+      "kp": 1.598,
+      "ki": 0.88,
+      "kd": 1.933,
+      "Ti_s": 1.815,
+      "Td_s": 1.21,
+      "rise_s": 2.133,
+      "overshoot_pct": 20.9,
+      "settling_s": 14.013,
+      "sse_mm": -0.0,
+      "final_m": 1.0,
+      "peak_m": 1.2091
+    },
+    {
+      "rule": "hand-refined (ours)",
+      "kp": 3.994,
+      "ki": 0.733,
+      "kd": 3.625,
+      "Ti_s": 5.445,
+      "Td_s": 0.908,
+      "rise_s": 1.713,
+      "overshoot_pct": 1.4,
+      "settling_s": 4.004,
+      "sse_mm": -0.0,
+      "final_m": 1.0,
+      "peak_m": 1.0137
+    }
+  ]
+}

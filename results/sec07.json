@@ -1,0 +1,203 @@
+{
+  "windup": [
+    {
+      "case": "no force limit (ideal)",
+      "max_I_term_N": 20.0,
+      "rise_s": 0.153,
+      "overshoot_pct": 0.5,
+      "settling_s": 0.242,
+      "sse_mm": 0.0,
+      "final_m": 1.0,
+      "peak_m": 1.0049
+    },
+    {
+      "case": "30 N limit, no anti-windup",
+      "max_I_term_N": 57.2,
+      "rise_s": 0.395,
+      "overshoot_pct": 11.1,
+      "settling_s": 3.284,
+      "sse_mm": -1.0,
+      "final_m": 1.001,
+      "peak_m": 1.1119
+    },
+    {
+      "case": "30 N limit + clamping",
+      "max_I_term_N": 19.9,
+      "rise_s": 0.41,
+      "overshoot_pct": 0.0,
+      "settling_s": 2.04,
+      "sse_mm": 0.4,
+      "final_m": 0.9996,
+      "peak_m": 0.9996
+    },
+    {
+      "case": "30 N limit + back-calculation",
+      "max_I_term_N": 20.0,
+      "rise_s": 0.396,
+      "overshoot_pct": 0.0,
+      "settling_s": 0.583,
+      "sse_mm": 0.0,
+      "final_m": 1.0,
+      "peak_m": 1.0002
+    }
+  ],
+  "noise": [
+    {
+      "case": "raw derivative",
+      "u_std_N": 17.36,
+      "u_p2p_N": 78.4,
+      "d_std_N": 17.23,
+      "y_std_mm": 0.153,
+      "rise_s": 0.153,
+      "overshoot_pct": 0.5,
+      "settling_s": 0.241,
+      "sse_mm": 0.4,
+      "final_m": 0.9996,
+      "peak_m": 1.0048
+    },
+    {
+      "case": "filtered derivative (\u03c4 = 5 ms)",
+      "u_std_N": 2.23,
+      "u_p2p_N": 10.7,
+      "d_std_N": 2.06,
+      "y_std_mm": 0.144,
+      "rise_s": 0.156,
+      "overshoot_pct": 0.0,
+      "settling_s": 0.257,
+      "sse_mm": 0.3,
+      "final_m": 0.9997,
+      "peak_m": 1.0001
+    }
+  ],
+  "kick": [
+    {
+      "case": "D on error (textbook)",
+      "peak_force_N": 20300.0,
+      "peak_D_N": 20000.0,
+      "rise_s": 0.079,
+      "overshoot_pct": 1.6,
+      "settling_s": 1.013,
+      "sse_mm": 5.1,
+      "final_m": 0.9949,
+      "peak_m": 1.011
+    },
+    {
+      "case": "D on measurement",
+      "peak_force_N": 300.0,
+      "peak_D_N": 1.0,
+      "rise_s": 0.153,
+      "overshoot_pct": 0.5,
+      "settling_s": 0.242,
+      "sse_mm": 0.2,
+      "final_m": 0.9998,
+      "peak_m": 1.0049
+    }
+  ],
+  "slow": {
+    "table": [
+      {
+        "Ts_ms": 1,
+        "spectral_radius": 0.9993,
+        "max_abs_y_m": 1.005,
+        "rise_s": 0.153,
+        "overshoot_pct": 0.5,
+        "settling_s": 0.242,
+        "sse_mm": 0.0,
+        "final_m": 1.0,
+        "peak_m": 1.0049
+      },
+      {
+        "Ts_ms": 10,
+        "spectral_radius": 0.9934,
+        "max_abs_y_m": 1.0,
+        "rise_s": 0.147,
+        "overshoot_pct": 0.0,
+        "settling_s": 0.245,
+        "sse_mm": 0.0,
+        "final_m": 1.0,
+        "peak_m": 1.0
+      },
+      {
+        "Ts_ms": 20,
+        "spectral_radius": 0.9869,
+        "max_abs_y_m": 1.0,
+        "rise_s": 0.138,
+        "overshoot_pct": 0.0,
+        "settling_s": 0.262,
+        "sse_mm": 0.0,
+        "final_m": 1.0,
+        "peak_m": 1.0
+      },
+      {
+        "Ts_ms": 30,
+        "spectral_radius": 0.9804,
+        "max_abs_y_m": 1.0,
+        "rise_s": 0.114,
+        "overshoot_pct": 0.0,
+        "settling_s": 0.287,
+        "sse_mm": 0.0,
+        "final_m": 1.0,
+        "peak_m": 1.0
+      },
+      {
+        "Ts_ms": 40,
+        "spectral_radius": 0.9741,
+        "max_abs_y_m": 1.013,
+        "rise_s": 0.085,
+        "overshoot_pct": 1.3,
+        "settling_s": 0.296,
+        "sse_mm": 0.0,
+        "final_m": 1.0,
+        "peak_m": 1.0126
+      },
+      {
+        "Ts_ms": 50,
+        "spectral_radius": 0.9678,
+        "max_abs_y_m": 1.09,
+        "rise_s": 0.075,
+        "overshoot_pct": 9.0,
+        "settling_s": 0.723,
+        "sse_mm": 0.0,
+        "final_m": 1.0,
+        "peak_m": 1.0902
+      },
+      {
+        "Ts_ms": 60,
+        "spectral_radius": 0.9616,
+        "max_abs_y_m": 1.214,
+        "rise_s": 0.071,
+        "overshoot_pct": 21.4,
+        "settling_s": 1.636,
+        "sse_mm": 0.0,
+        "final_m": 1.0,
+        "peak_m": 1.2137
+      },
+      {
+        "Ts_ms": 70,
+        "spectral_radius": 0.9754,
+        "max_abs_y_m": 1.373,
+        "rise_s": null,
+        "overshoot_pct": null,
+        "settling_s": null,
+        "sse_mm": -0.4,
+        "final_m": 1.0004,
+        "peak_m": 1.3728
+      },
+      {
+        "Ts_ms": 80,
+        "spectral_radius": 1.0453,
+        "max_abs_y_m": 121.793,
+        "rise_s": null,
+        "overshoot_pct": null,
+        "settling_s": null,
+        "sse_mm": 11984.6,
+        "final_m": -10.9846,
+        "peak_m": 113.4651
+      }
+    ],
+    "Ts_limit_exact_ms": 73.5,
+    "crossover_rad_s": 22.42,
+    "phase_margin_deg": 80.6,
+    "Ts_limit_rule_of_thumb_ms": 62.7
+  }
+}

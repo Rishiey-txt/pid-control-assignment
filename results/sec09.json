@@ -1,0 +1,22 @@
+{
+  "step_up": {
+    "rise_s": 0.396,
+    "overshoot_pct": 0.0,
+    "settling_s": 0.588,
+    "sse_mm": 0.5,
+    "final_m": 0.9995,
+    "peak_m": 0.9995
+  },
+  "step_down": {
+    "rise_s": 0.17,
+    "overshoot_pct": 0.7,
+    "settling_s": 0.28,
+    "sse_mm": 1.5,
+    "final_m": 0.4985,
+    "peak_m": 0.495
+  },
+  "push_dip_mm": 15.1,
+  "push_recover_s": 0.0,
+  "I_term_before_push_N": 19.85,
+  "I_term_after_push_N": 22.84
+}
